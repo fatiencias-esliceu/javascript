@@ -44,8 +44,37 @@ else if (resto == 11) {
     letra = "B";
 }
 else if (resto == 12) {
-    letra = "";
+    letra = "N";
 }
-
+else if (resto == 13) {
+    letra = "J";
+}
+else if (resto == 14) {
+    letra = "Z";
+}
+else if (resto == 15) {
+    letra = "S";
+}
+else if (resto == 16) {
+    letra = "Q";
+}
+else if (resto == 17) {
+    letra = "V";
+}
+else if (resto == 18) {
+    letra = "H";
+}
+else if (resto == 19) {
+    letra = "L";
+}
+else if (resto == 20) {
+    letra = "C";
+}
+else if (resto == 21) {
+    letra = "K";
+}
+else if (resto == 22) {
+    letra = "E";
+}
 alert("tu dni" + dni + "tu letra" + letra);
 
