@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+
+        var historial = [];
+
+        function _id(ident){
+            return document.getElementById(ident);
+        }
+
+        function operar(operacion){
+            
+            var primero = _id("primero");
+            var segundo = _id("segundo");
+            var resul = _id("resultado");
+
+            var valor1 = primero.value; //obtiene el valor del input
+            var valor2 = segundo.value; //obtiene el valor del input
+            
+            var resultado; 
+            var manolo;
+            if (operacion == "+"){
+                resultado = parseInt(valor1) + parseInt(valor2);
+                manolo = valor1 + operacion + valor2 + "=" + resultado;
+            } else if (operacion == "-"){
+                resultado = parseInt(valor1) - parseInt(valor2);
+                manolo = valor1 + operacion + valor2 + "=" + resultado;
+            } else if (operacion == "*"){
+                resultado = parseInt(valor1) * parseInt(valor2);
+                manolo = valor1 + operacion + valor2 + "=" + resultado;
+            } else if (operacion == "/"){
+
+                if (valor2 == 0){
+                    alert("No se puede dividir por 0");
+                    resultado = "ERROR!";
+                } else{
+                    resultado = parseInt(valor1) / parseInt(valor2);
+                }
+                manolo = valor1 + operacion + valor2 + "=" + resultado;
+
+            } else if (operacion == "raiz"){
+                resultado = Math.sqrt(parseInt(valor1));
+                manolo = operacion +"(" + valor1 + ")" + "=" + resultado;
+            }
+
+            historial.push(manolo);
+
+            pintaHistorial();
+            
+            resul.value = resultado.toPrecision(6); //escribimos el resultado en el input
+            resultado = parseInt(resultado); //quitamos los decimales
+            if (resultado<0){
+                resul.style.color="red";
+            } else{
+                resul.style.color="green";
+            }
+
+            if (resultado%2==0){ //es par
+                _id("paridad").innerHTML = "PAR";
+            } else if (resultado%2==1){ //es impar
+                _id("paridad").innerHTML = "IMPAR";
+            } else{
+                _id("paridad").innerHTML = "NS/NC";
+            }
+
+            if(resultado<0){
+                _id("cuentaAtras").innerHTML = "0";
+            } else{
+                var resultadoEntero = resultado;
+
+                var cuentaAtras = "";
+                while (resultadoEntero>=0){
+                    cuentaAtras += resultadoEntero; //cuentaAtras = cuentaAtras+ "";
+                    if (resultadoEntero>0) cuentaAtras += ", ";
+                    resultadoEntero--;
+                }
+                
+                //document.getElementById("cuentaAtras").innerHTML = cuentaAtras;
+
+                var divisores = "";
+                for(var divisor = resultado; divisor>0; divisor--){
+                    if (resultado%divisor==0){
+                        divisores+=divisor + ", ";
+                    }
+                }
+
+                //_id("divisores").innerHTML = divisores;
+
+            }
+
+        }
+
+        function pintaHistorial(){
+
+            let resultadoHistorial = "";
+            for(var i=0; i<historial.length; i++){
+                console.log(historial[i])
+                resultadoHistorial += historial[i] + ", ";
+            }
+
+            _id("historial").innerHTML = resultadoHistorial;
+
+        }
+
+        function borrar(){
+            _id("primero").value = "";
+            _id("segundo").value = "";
+            _id("resultado").value = "";
+        }
+
+        function cambiaModo(modo){
+
+            var colorFondo;
+            var colorTexto;
+            if (modo == "dia"){
+                colorFondo = "white";
+                colorTexto = "black";
+            } else if(modo == "noche"){
+                colorFondo = "black";
+                colorTexto = "white";
+            }else if (modo == "aleatorio"){
+                var red = Math.floor(Math.random() * 255);
+                var green = Math.floor(Math.random() * 255);
+                var blue = Math.floor(Math.random() * 255);
+                colorFondo = "rgb(" + red + "," + green + "," + blue + ")";
+            }
+
+
+            _id("cuerpo").style.backgroundColor = colorFondo;
+            _id("cuerpo").style.color = colorTexto;
+        }
+
+    </script>
+
+</head>
+
+<body id="cuerpo">
+    <button id="boton" onclick="cambiaModo('noche')">&#9789;</button>
+    <button id="boton" onclick="cambiaModo('dia')">&#9737; </button>
+    <button id="boton" onclick="cambiaModo('aleatorio')">???</button>
+    <br>
+    <br>
+
+    <input type="number" id="primero"> <br>
+    <input type="number" id="segundo"> <br>
+
+    <button id="boton" onclick="operar('+')">+</button>
+    <button id="boton" onclick="operar('-')">-</button>
+    <button id="boton" onclick="operar('*')">*</button>
+    <button id="boton" onclick="operar('/')">/</button>
+    <button id="boton" onclick="operar('raiz')">&#8730;</button>
+    <button id="boton" onclick="borrar()">CE</button>
+
+    <br><br>
+    <label for="resultado">Resultado</label>
+    <input type="text" id="resultado"> <label id="paridad"></label><br>
+    Cuenta atrás: <label id="cuentaAtras"></label> <br>
+    Divisores: <label id="divisores"></label> <br>
+    Historial: <label id="historial"></label> <br>
+</body>
+
+</html>

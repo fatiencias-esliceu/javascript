@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+
+
+        
+
+        function operar(operacion){
+            
+            var primero = document.getElementById("primero");
+            var segundo = document.getElementById("segundo");
+            var resul = document.getElementById("resultado");
+
+            var valor1 = primero.value; //obtiene el valor del input
+            var valor2 = segundo.value; //obtiene el valor del input
+            
+            var resultado; 
+            if (operacion == "+"){
+                resultado = parseInt(valor1) + parseInt(valor2);
+            } else if (operacion == "-"){
+                resultado = parseInt(valor1) - parseInt(valor2);
+            } else if (operacion == "*"){
+                resultado = parseInt(valor1) * parseInt(valor2);
+            } else if (operacion == "/"){
+
+                if (valor2 == 0){
+                    alert("No se puede dividir por 0");
+                    resultado = "ERROR!";
+                } else{
+                    resultado = parseInt(valor1) / parseInt(valor2);
+                }
+
+            } else if (operacion == "raiz"){
+                resultado = Math.sqrt(parseInt(valor1));
+            }
+            
+            resul.value = resultado; //escribimos el resultado en el input
+            if (resultado<0){
+                resul.style.color="red";
+            } else{
+                resul.style.color="green";
+            }
+
+            if (resultado%2==0){ //es par
+                document.getElementById("paridad").innerHTML = "PAR";
+            } else if (resultado%2==1){ //es impar
+                document.getElementById("paridad").innerHTML = "IMPAR";
+            } else{
+                document.getElementById("paridad").innerHTML = "NS/NC";
+            }
+
+            if(resultado<0){
+                document.getElementById("cuentaAtras").innerHTML = "0";
+            } else{
+                resultado = parseInt(resultado);
+
+                var cuentaAtras = "";
+                while (resultado>=0){
+                    cuentaAtras += resultado; //cuentaAtras = cuentaAtras+ "";
+                    if (resultado>0) cuentaAtras += ", ";
+                    resultado--;
+                }
+                
+                document.getElementById("cuentaAtras").innerHTML = cuentaAtras;
+
+
+            }
+
+        }
+
+        function borrar(){
+            document.getElementById("primero").value = "";
+            document.getElementById("segundo").value = "";
+            document.getElementById("resultado").value = "";
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+    <input type="number" id="primero"> <br>
+    <input type="number" id="segundo"> <br>
+
+    <button id="boton" onclick="operar('+')">+</button>
+    <button id="boton" onclick="operar('-')">-</button>
+    <button id="boton" onclick="operar('*')">*</button>
+    <button id="boton" onclick="operar('/')">/</button>
+    <button id="boton" onclick="operar('raiz')">&#8730;</button>
+    <button id="boton" onclick="borrar()">CE</button>
+
+    <br><br>
+    <label for="resultado">Resultado</label>
+    <input type="text" id="resultado"> <label id="paridad"></label><br>
+    Cuenta atrás: <label id="cuentaAtras"></label>
+</body>
+
+</html>

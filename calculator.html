@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+
+        function operar(operacion) {
+            var valor1 = document.getElementById("primero").value; //obtiene el valor del input
+            var valor2 = document.getElementById("segundo").value; //obtiene el valor del input
+
+            var resultado;
+            if (operacion == "+") {
+                resultado = parseInt(valor1) + parseInt(valor2);
+            } else if (operacion == "-") {
+                resultado = parseInt(valor1) - parseInt(valor2);
+            } else if (operacion == "*") {
+                resultado = parseInt(valor1) * parseInt(valor2);
+            } else if (operacion == "/") { 
+                if (valor2 == 0)
+                { alert ("ERROR!");
+                resultado = "ERROR";
+                 } else  {
+                    resultado = perseInt(valor1) / parseInt(valor2);
+                }
+                resultado = parseInt(valor1) / parseInt(valor2);
+            
+            } else if (operacion == "raiz") {
+                resultado = Math.sqrt(parseInt(valor1));
+            }
+
+        document.getElementById("resultado").value = resultado;
+        if (resultado < 0) {
+            document.getElementById("resultado").style.color = "red";
+        } else {
+            document.getElementById("resultado").style.color = "green";
+        }
+    }
+        
+    </script>
+
+</head>
+
+<body>
+
+    <input type="number" id="primero"> <br>
+    <input type="number" id="segundo"> <br>
+
+    <button id="boton" onclick="operar('+')">+</button>
+    <button id="boton" onclick="operar('-')">-</button>
+    <br>
+    <button id="boton" onclick="operar('*')">*</button>
+    <button id="boton" onclick="operar('/')">/</button>
+    <button id="boton" onclick="operar('raiz')">&#8730;</button>
+
+
+    <br><br>
+    <label for="resultado">Resultado</label>
+    <input type="text" id="resultado"> <br>
+
+
+</body>
+
+</html>
